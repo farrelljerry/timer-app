@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_speech"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.jerryrolfing.speechtimer.SpeechActivity"
+    tools:showIn="@layout/activity_speech">
+
+    <ListView
+        android:id="@+id/intervalList"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="300dp"
+        android:background="#EEEEEE"
+        android:divider="#CCCCCC"
+        android:dividerHeight="1dp"
+        android:listSelector="#CCCCCC"
+        />
+
+    <TextView
+        android:id="@+id/workoutName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/intervalValue"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:textSize="40sp"
+        android:textColor="#000"
+        android:text="Name" />
+
+    <TextView
+        android:id="@+id/intervalValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/intervalText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:textSize="40sp"
+        android:textColor="#000"
+        android:text="Press Start" />
+
+    <TextView
+        android:id="@+id/intervalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/timerValue"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:textSize="20sp"
+        android:textColor="#000"
+        android:text="Interval Text" />
+
+    <TextView
+        android:id="@+id/timerValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/twoButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="37dp"
+        android:textSize="40sp"
+        android:textColor="#000"
+        android:text="00:00:00" />
+
+    <Button
+        android:id="@+id/oneButton"
+        android:layout_width="90dp"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="38dp"
+        android:text="Start" />
+
+    <Button
+        android:id="@+id/twoButton"
+        android:layout_width="90dp"
+        android:layout_height="45dp"
+        android:layout_alignBaseline="@+id/oneButton"
+        android:layout_alignBottom="@+id/oneButton"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="38dp"
+        android:text="Stop" />
+
+</RelativeLayout>

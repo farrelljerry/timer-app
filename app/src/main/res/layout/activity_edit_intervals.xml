@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_edit_intervals"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.jerryrolfing.speechtimer.EditIntervals">
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="90dp"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="38dp"
+        android:text="Save" />
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="90dp"
+        android:layout_height="45dp"
+        android:text="Cancel"/>
+
+    <EditText
+        android:id="@+id/workoutName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLenth="30"
+        android:hint="name"
+        />
+    <TextView
+        android:id="@+id/warmup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00:00     "
+        />
+    <TextView
+        android:id="@+id/cooldown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/warmupTime"
+        android:text="00:00:02     "
+        />
+    <View
+        android:id="@+id/seperator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:id="@+id/repeatsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Number of times to repeat :"
+        />
+    <EditText
+        android:id="@+id/repeats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="000000"
+        />
+
+
+</LinearLayout>
+</ScrollView>
