@@ -35,7 +35,7 @@
         android:id="@+id/workoutName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxLenth="30"
+        android:maxLength="30"
         android:hint="name"
         />
     <TextView

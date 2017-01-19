@@ -1,11 +1,16 @@
 package com.jerryrolfing.speechtimer;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipDescription;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.DragEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -13,6 +18,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class EditIntervals extends AppCompatActivity {
+
+    String msg;
+    private android.widget.LinearLayout.LayoutParams layoutParams;
 
     TextView tvWorkoutName;
     TextView tvWarmup;
@@ -74,13 +82,83 @@ public class EditIntervals extends AppCompatActivity {
             llEdit.addView(tvIntervals[i]);
             //setup ClickListener for intervals
             tvIntervals[i].setOnClickListener(new TextView.OnClickListener(){
-                public void onClick(View view){
-                    int j=(int) view.getTag();
+                public void onClick(View v){
+                    int j=(int) v.getTag();
                     Intent intent = new Intent(EditIntervals.this, TimeSelect.class);
                     intent.putExtra("MESSAGE",messages[j]);
                     intent.putExtra("INTERVAL",intervals[j]);
                     intent.putExtra("TAG",Integer.toString(j));
                     startActivityForResult(intent,TIME_SELECT_INTERVAL_RESULT);
+                }
+            });
+            tvIntervals[i].setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int j=(int) v.getTag();
+                    ClipData.Item item=new ClipData.Item((CharSequence)v.getTag());
+                    String[] mimeTypes={ClipDescription.MIMETYPE_TEXT_PLAIN};
+                    ClipData dragData=new ClipData(v.getTag().toString(),mimeTypes,item);
+                    View.DragShadowBuilder myShadow=new View.DragShadowBuilder(tvIntervals[j]);
+                    v.startDrag(dragData,myShadow,null,0);
+                    return true;
+                }
+            });
+            tvIntervals[i].setOnDragListener(new View.OnDragListener(){
+                @Override
+                public boolean onDrag(View v,DragEvent event){
+                    switch(event.getAction()) {
+                        case DragEvent.ACTION_DRAG_STARTED:
+                            layoutParams = (LinearLayout.LayoutParams) v.getLayoutParams();
+                            Log.d(msg, "Action is DragEvent.ACTION_DRAG_STARTED");
+                            break;
+                        case DragEvent.ACTION_DRAG_ENTERED:
+                            Log.d(msg, "Action is DragEvent.ACTION_DRAG_ENTERED");
+                            System.out.println("Action is DragEvent.ACTION_DRAG_ENTERED");
+                            int x_cord = (int) event.getX();
+                            int y_cord = (int) event.getY();
+                            break;
+                        case DragEvent.ACTION_DRAG_EXITED:
+                            Log.d(msg, "Action is DragEvent.ACTION_DRAG_EXITED");
+                            System.out.println("Action is DragEvent.ACTION_DRAG_EXITED");
+                            x_cord = (int) event.getX();
+                            y_cord = (int) event.getY();
+                            layoutParams.leftMargin = x_cord;  //only drag view on y axis, not x
+                            layoutParams.topMargin = y_cord;
+                            v.setLayoutParams(layoutParams);
+                            break;
+                        case DragEvent.ACTION_DRAG_LOCATION:
+                            Log.d(msg, "Action is DragEvent.ACTION_DRAG_LOCATION");
+                            System.out.println("Action is DragEvent.ACTION_DRAG_LOCATION");
+                            x_cord = (int) event.getX();
+                            y_cord = (int) event.getY();
+                            break;
+                        case DragEvent.ACTION_DRAG_ENDED:
+                            Log.d(msg, "Action is DragEvent.ACTION_DRAG_ENDED");
+                            System.out.println("Action is DragEvent.ACTION_DRAG_ENDED");
+                            break;
+                        case DragEvent.ACTION_DROP:
+                            Log.d(msg, "ACTION_DROP event");
+                            System.out.println("ACTION_DROP event");
+                            break;
+                        default:
+                            break;
+                    }
+                    return true;
+                }
+            });
+            tvIntervals[i].setOnTouchListener(new View.OnTouchListener(){
+                @Override
+                public boolean onTouch(View v,MotionEvent event){
+                    int j=(int) v.getTag();
+                    if (event.getAction()==MotionEvent.ACTION_DOWN) {
+                        ClipData data = ClipData.newPlainText("", "");
+                        View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(tvIntervals[j]);
+                        tvIntervals[j].startDrag(data, shadowBuilder, tvIntervals[j], 0);
+                        tvIntervals[j].setVisibility(View.INVISIBLE);
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
             });
         }
